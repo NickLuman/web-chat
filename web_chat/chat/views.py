@@ -15,9 +15,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return render(request,
-                            'chat/dashboard.html',
-                            {'section': 'dashboard'})
+                    return redirect('/chat/me')
                 else:
                     return HttpResponse('Disabled account')
             else:
@@ -30,6 +28,12 @@ def user_logout(request):
     logout(request)
     return render(request, 'chat/logged_out.html')
 
+def auth_check(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('/chat/me')
+        else:
+            return redirect('/chat/login')
 
 @login_required
 def dashboard(request):
