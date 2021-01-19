@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}Found user{% endblock %}
+
+{% block content %}
+    {{ username }} 
+    <a href="{% url 'create dialogue' user_id %}">Start dialogue</a>
+{% endblock %}

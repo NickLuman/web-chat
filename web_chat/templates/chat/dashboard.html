@@ -1,7 +1,26 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <h1>Dashboard</h1>
+  {% load bootstrap3 %}
+  <form action="{% url 'dashboard' %}" class="navbar-form navbar-left" method="get">
+      <div class="input-group">
+          <input id="search" name="q" type="text" class="form-control" placeholder="Поиск">
+          &nbsp;
+          <span class="input-group-btn">
+              <button type="submit" class="btn">Search</button>
+          </span>
+      </div>
+  </form>
+
+  <hr>
+
+  <div class="panel">
+        {% load tz %}
+        {% if chats.count == 0 %}
+            <div class="panel panel-body">{% trans "Нет ни одного начатого диалога" %}</div>
+        {% endif %}
+    </div>
 {% endblock %}

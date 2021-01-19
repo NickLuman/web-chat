@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from .models import Message
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -21,3 +23,9 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password_repeat']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password_repeat']
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message']
+        labels = {'message': ""}
