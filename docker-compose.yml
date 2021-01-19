@@ -1,0 +1,24 @@
+version: "3.7"
+
+services: 
+    db:
+        image: postgres:${POSTGRES_VERSION}
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        environment: 
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    web:
+        build: ./web_chat
+        command: python manage.py runserver ${ADDRESS}
+        volumes:
+            - ./web_chat:/usr/src/app/
+        env_file: 
+            - ./.env.dev
+        ports: 
+            - ${PORTS}
+        depends_on: 
+            - db
+volumes:
+    postgres_data:
